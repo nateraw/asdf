@@ -1,4 +1,4 @@
-from torchvision.transforms import Compose, Resize, Scale, ToTensor, CenterCrop, Normalize, RandomResizedCrop, RandomHorizontalFlip
+from torchvision.transforms import Compose, Resize, ToTensor, CenterCrop, Normalize, RandomResizedCrop, RandomHorizontalFlip
 
 
 def imagenet_normalize():
@@ -16,7 +16,7 @@ def imagenet_train_transforms():
 
 def imagenet_val_transforms():
     return Compose([
-        Scale(256),
+        Resize(256),
         CenterCrop(224),
         ToTensor(),
         imagenet_normalize,
