@@ -5,7 +5,7 @@ from torch import nn
 
 class Classifier(pl.LightningModule):
 
-    def __init__(self, model, learning_rate=0.001, criterion=None, train_metric=None, val_metric=None, test_metric=None):
+    def __init__(self, model=None, learning_rate=0.001, criterion=None, train_metric=None, val_metric=None, test_metric=None):
         super().__init__()
         self.save_hyperparameters()
         self.model = model or nn.Linear(784, 10)
