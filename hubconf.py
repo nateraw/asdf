@@ -1,3 +1,8 @@
 from src.transforms import imagenet_train_transforms, imagenet_val_transforms, imagenet_normalize
 from src.main import run, wrapped_run
 from src.data import example_image
+from src.classifier import Classifier
+
+
+def lightning_classifier(model, **kwargs):
+    return Classifier(model, **kwargs)
