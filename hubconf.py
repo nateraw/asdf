@@ -4,6 +4,6 @@ from src.data import example_image
 from src.classifier import Classifier
 
 
-def lightning_classifier(**kwargs):
+def lightning_classifier(model=None, **kwargs):
     print(kwargs)
-    return Classifier(**kwargs)
+    return Classifier(model, **kwargs)
