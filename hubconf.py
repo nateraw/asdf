@@ -1,1 +1,2 @@
-from src import train_transforms, run
+from src.transforms import train_transforms
+from src.main import run
