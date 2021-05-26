@@ -43,6 +43,6 @@ class Classifier(pl.LightningModule):
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), lr=self.hparams.learning_rate)
     
-    def fit(self, *args, **kwargs):
-        trainer = pl.Trainer(**kwargs)
-        trainer.fit(self, *args)
+#     def fit(self, *args, **kwargs):
+#         trainer = pl.Trainer(**kwargs)
+#         trainer.fit(self, *args)
