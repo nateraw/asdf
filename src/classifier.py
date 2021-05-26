@@ -42,7 +42,7 @@ class Classifier(pl.LightningModule):
         return self.shared_step(batch, "test")
 
     def configure_optimizers(self):
-        optimizer_kwargs = {k: v for k,v in self.hparams.items() if k.startswith('optim_')}
+        optimizer_kwargs = {k[6:]: v for k,v in self.hparams.items() if k.startswith('optim_')}
         return self.optimizer_class(self.parameters(), lr=self.hparams.learning_rate, **optimizer_kwargs)
     
     def fit(self, *args, **kwargs):
