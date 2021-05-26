@@ -5,15 +5,16 @@ from torch import nn
 
 class Classifier(pl.LightningModule):
 
-    def __init__(self, model=None, learning_rate=0.001, criterion=None, train_metric=None, val_metric=None, test_metric=None):
+    def __init__(self, model=None, learning_rate=0.001, criterion=None, train_metric=None, val_metric=None, test_metric=None, optimizer_class=None, **kwargs):
         super().__init__()
-        self.save_hyperparameters('learning_rate')
+        self.save_hyperparameters('learning_rate', *list(kwargs))
         self.model = model or nn.Linear(784, 10)
         self.criterion = criterion or nn.CrossEntropyLoss()
         self.train_metric = train_metric or pl.metrics.Accuracy()
         self.val_metric = val_metric or pl.metrics.Accuracy()
         self.test_metric = test_metric or pl.metrics.Accuracy()
         self.metrics = dict(train=self.train_metric, val=self.val_metric, test=self.test_metric)
+        self.optimizer_class = optimizer_class or torch.optim.Adam
 
     def forward(self, x):
         return self.model(x)
@@ -41,7 +42,8 @@ class Classifier(pl.LightningModule):
         return self.shared_step(batch, "test")
 
     def configure_optimizers(self):
-        return torch.optim.Adam(self.parameters(), lr=self.hparams.learning_rate)
+        optimizer_kwargs = {k: v for k,v in self.hparams.items() if k.startswith('optim_')}
+        return self.optimizer_class(self.parameters(), lr=self.hparams.learning_rate, **optimizer_kwargs)
     
     def fit(self, *args, **kwargs):
         trainer = pl.Trainer(**kwargs)
