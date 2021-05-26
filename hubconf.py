@@ -5,4 +5,5 @@ from src.classifier import Classifier
 
 
 def lightning_classifier(**kwargs):
+    print(kwargs)
     return Classifier(**kwargs)
