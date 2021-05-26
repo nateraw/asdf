@@ -19,5 +19,5 @@ def imagenet_val_transforms():
         Resize(256),
         CenterCrop(224),
         ToTensor(),
-        imagenet_normalize,
+        imagenet_normalize(),
     ])
