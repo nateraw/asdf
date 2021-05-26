@@ -5,18 +5,15 @@ from torch import nn
 
 class Classifier(pl.LightningModule):
 
-    def __init__(self, model, learning_rate=0.001, criterion=None, train_metric=None, val_metric=None, test_metric=None, example_input=None):
+    def __init__(self, model, learning_rate=0.001, criterion=None, train_metric=None, val_metric=None, test_metric=None):
         super().__init__()
         self.save_hyperparameters()
-        self.model = model
+        self.model = model or nn.Linear(784, 10)
         self.criterion = criterion or nn.CrossEntropyLoss()
         self.train_metric = train_metric or pl.metrics.Accuracy()
         self.val_metric = val_metric or pl.metrics.Accuracy()
         self.test_metric = test_metric or pl.metrics.Accuracy()
         self.metrics = dict(train=self.train_metric, val=self.val_metric, test=self.test_metric)
-
-        if example_input:
-            self.example_input_array = example_input
 
     def forward(self, x):
         return self.model(x)
