@@ -1,4 +1,4 @@
-from Pathlib import Path
+from pathlib import Path
 from PIL import Image
 
 this_file_path = Path(__file__)
