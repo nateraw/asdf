@@ -7,7 +7,7 @@ class Classifier(pl.LightningModule):
 
     def __init__(self, model=None, learning_rate=0.001, criterion=None, train_metric=None, val_metric=None, test_metric=None):
         super().__init__()
-        self.save_hyperparameters()
+        self.save_hyperparameters('learning_rate')
         self.model = model or nn.Linear(784, 10)
         self.criterion = criterion or nn.CrossEntropyLoss()
         self.train_metric = train_metric or pl.metrics.Accuracy()
