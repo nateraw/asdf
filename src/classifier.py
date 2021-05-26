@@ -44,4 +44,5 @@ class Classifier(pl.LightningModule):
         return torch.optim.Adam(self.parameters(), lr=self.hparams.learning_rate)
     
     def fit(self, *args, **kwargs):
-        pl.Trainer(**kwargs).fit(self, *args)
+        trainer = pl.Trainer(**kwargs)
+        trainer.fit(self, *args)
